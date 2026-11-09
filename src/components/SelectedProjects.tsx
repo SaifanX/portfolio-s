@@ -22,7 +22,7 @@ const flagshipProjects: Project[] = [
     number: "01",
     title: "AirGuard",
     subtitle: "Autonomous Pre-Flight UAV Avionics & AI Co-Pilot",
-    badge: "TechnoFest Hackathon 2026 State Winner",
+    badge: "TechnoFest Hackathon 2026 State 2nd Place",
     description:
       "A pre-flight safety layer for drone pilots featuring geospatial dynamic geofencing, real-time ADS-B weather rasterization, and Gemini LLM-driven FAA/DGCA aviation compliance checks. Built with distributed reactive state synchronization.",
     stack: ["React", "TypeScript", "Leaflet", "Gemini API", "Convex"],
@@ -53,18 +53,6 @@ const flagshipProjects: Project[] = [
     liveUrl: "https://bbie-ai4bharat.netlify.app",
     githubUrl: "https://github.com/SaifanX/bbie-prototype",
     accent: "from-cyan-500/20 to-transparent",
-  },
-  {
-    number: "04",
-    title: "Omnibundler",
-    subtitle: "AI-Native React AST Compiler & Single-File Bundler",
-    badge: "Open Source Tooling",
-    description:
-      "High-speed compiler architecture that traverses React ASTs, tree-shakes modular component trees, and packages full-stack React applications into self-contained single-file HTML executables with zero server dependencies.",
-    stack: ["TypeScript", "Babel AST", "React", "Compiler Architecture"],
-    liveUrl: "https://github.com/SaifanX/Omnibundler-AI",
-    githubUrl: "https://github.com/SaifanX/Omnibundler-AI",
-    accent: "from-purple-500/20 to-transparent",
   },
 ];
 
@@ -101,20 +89,20 @@ const secondaryProjects = [
 
 export default function SelectedProjects() {
   return (
-    <section id="projects" className="py-24 px-4 sm:px-6 max-w-6xl mx-auto">
+    <section id="projects" className="py-16 sm:py-24 px-4 sm:px-6 max-w-6xl mx-auto">
       {/* Clean Editorial Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4"
+        className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-12 sm:mb-16 gap-4"
       >
         <div>
           <span className="text-xs uppercase font-mono tracking-widest text-crimson font-bold block mb-2">
             Portfolio Showcase
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-display uppercase">
+          <h2 className="text-2xl xs:text-3xl sm:text-5xl font-black tracking-tight text-white font-display uppercase">
             Selected Projects
           </h2>
         </div>
@@ -179,7 +167,7 @@ export default function SelectedProjects() {
 
                 <div>
                   {/* React Bits TechText for Flagship Titles */}
-                  <div className="w-full max-w-[320px] sm:max-w-md h-12 sm:h-14 -ml-1">
+                  <div className="w-full max-w-[240px] xs:max-w-[300px] sm:max-w-md h-10 xs:h-12 sm:h-14 -ml-1">
                     <TechText
                       text={project.title}
                       fontWeight={900}
@@ -256,23 +244,23 @@ export default function SelectedProjects() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-16 p-6 sm:p-8 rounded-3xl bg-[#0e0e14]/90 border border-zinc-800/80 shadow-2xl backdrop-blur-sm"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 my-12 sm:my-16 p-4 sm:p-8 rounded-3xl bg-[#0e0e14]/90 border border-zinc-800/80 shadow-2xl backdrop-blur-sm"
       >
-        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
-          <div className="text-2xl sm:text-4xl font-mono font-black text-white">15+</div>
-          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Shipped Repositories</div>
+        <div className="space-y-1 p-2.5 sm:p-4 border-l-2 border-crimson">
+          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">15+</div>
+          <div className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider">Shipped Repositories</div>
         </div>
-        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
-          <div className="text-2xl sm:text-4xl font-mono font-black text-white">1st Place</div>
-          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">TechnoFest 2026 Winner</div>
+        <div className="space-y-1 p-2.5 sm:p-4 border-l-2 border-crimson">
+          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">2nd Place</div>
+          <div className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider">TechnoFest 2026 Runner-Up</div>
         </div>
-        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
-          <div className="text-2xl sm:text-4xl font-mono font-black text-white">&lt;50ms</div>
-          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Reactive State Latency</div>
+        <div className="space-y-1 p-2.5 sm:p-4 border-l-2 border-crimson">
+          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">&lt;50ms</div>
+          <div className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider">Reactive State Latency</div>
         </div>
-        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
-          <div className="text-2xl sm:text-4xl font-mono font-black text-white">100%</div>
-          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">WASM / WebGL Compute</div>
+        <div className="space-y-1 p-2.5 sm:p-4 border-l-2 border-crimson">
+          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">100%</div>
+          <div className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider">WASM / WebGL Compute</div>
         </div>
       </motion.div>
 

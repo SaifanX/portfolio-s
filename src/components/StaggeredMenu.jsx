@@ -423,6 +423,20 @@ export const StaggeredMenu = ({
         inert={!open ? "" : undefined}
       >
         <div className="sm-panel-inner">
+          <div className="flex items-center justify-between pb-3.5 border-b border-zinc-800/80 mb-3">
+            <span className="font-display font-bold text-xs uppercase tracking-widest text-zinc-400">
+              Navigation
+            </span>
+            <button
+              type="button"
+              onClick={closeMenu}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-crimson/20 border border-zinc-700/80 hover:border-crimson text-zinc-300 hover:text-white transition-all text-xs font-mono active:scale-95 cursor-pointer"
+              aria-label="Close navigation"
+            >
+              <span>Close</span>
+              <span className="text-sm font-bold leading-none text-crimson">✕</span>
+            </button>
+          </div>
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items && items.length ? (
               items.map((it, idx) => (

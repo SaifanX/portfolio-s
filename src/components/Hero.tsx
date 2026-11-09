@@ -102,7 +102,7 @@ export default function Hero({ isReady = true }: HeroProps) {
   ];
 
   return (
-    <section className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-16 sm:pt-20 pb-4 sm:pb-5 px-4 sm:px-6 lg:px-10 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex flex-col justify-between pt-24 xs:pt-28 sm:pt-32 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-10 overflow-hidden">
       {/* Rich Atmospheric Crimson Glow & Ambient Lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[750px] lg:w-[1100px] h-[300px] sm:h-[480px] bg-crimson/20 blur-[120px] sm:blur-[160px] pointer-events-none rounded-full" />
       <div className="absolute top-1/3 left-1/4 w-[280px] sm:w-[400px] h-[240px] sm:h-[340px] bg-crimson-dark/30 blur-[100px] sm:blur-[140px] pointer-events-none rounded-full" />
@@ -113,10 +113,10 @@ export default function Hero({ isReady = true }: HeroProps) {
 
       {/* Central Composition: Monumental Typewriter SAIFAN + Cutout Portrait */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center my-auto">
-        <div className="relative w-full h-[180px] xs:h-[220px] sm:h-[280px] md:h-[330px] lg:h-[370px] xl:h-[410px] flex items-end justify-center select-none">
+        <div className="relative w-full h-[210px] xs:h-[250px] sm:h-[300px] md:h-[350px] lg:h-[390px] xl:h-[420px] flex items-end justify-center select-none">
           {/* Monumental White Display Text BEHIND the image (Typewriter Effect) */}
           <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-            <h1 className="font-display font-black tracking-tight text-5xl xs:text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)]">
+            <h1 className="font-display font-black tracking-tight text-5xl xs:text-6xl sm:text-7xl md:text-[9.5rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)]">
               <TypewriterText
                 text="SAIFAN"
                 startTrigger={isReady}
@@ -134,7 +134,7 @@ export default function Hero({ isReady = true }: HeroProps) {
               duration: 0.95,
               ease: [0.77, 0, 0.175, 1],
             }}
-            className="relative z-20 w-[180px] xs:w-[220px] sm:w-[280px] md:w-[330px] lg:w-[370px] xl:w-[410px] h-full flex items-end justify-center pointer-events-none"
+            className="relative z-20 w-[210px] xs:w-[250px] sm:w-[300px] md:w-[350px] lg:w-[390px] xl:w-[420px] h-full flex items-end justify-center pointer-events-none"
           >
             {/* Backlight Glow around the portrait */}
             <motion.div
@@ -159,8 +159,8 @@ export default function Hero({ isReady = true }: HeroProps) {
         </div>
 
         {/* Text Placed Directly Below the Image (Typewriter Effect) */}
-        <div className="relative z-30 text-center mt-3 sm:mt-4 px-2">
-          <h2 className="text-[10px] sm:text-xs md:text-sm font-extrabold uppercase tracking-[0.14em] sm:tracking-[0.25em] text-zinc-300 font-display">
+        <div className="relative z-30 text-center mt-3 sm:mt-5 px-3">
+          <h2 className="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-[0.16em] sm:tracking-[0.25em] text-zinc-300 font-display">
             <TypewriterText
               text="SOLUTIONS ARCHITECT & SYSTEMS ENGINEER"
               startTrigger={isReady}
@@ -173,7 +173,7 @@ export default function Hero({ isReady = true }: HeroProps) {
       </div>
 
       {/* Clean Editorial Bottom Bar */}
-      <div className="relative z-30 w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-zinc-800/40">
+      <div className="relative z-30 w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-zinc-800/50">
         {/* Sleek Circular Social Media Icons (Fading Outwards from Behind Each Other) */}
         <div className="relative flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
           {socials.map((s, i) => {

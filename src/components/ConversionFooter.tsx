@@ -36,20 +36,20 @@ export default function ConversionFooter() {
   };
 
   return (
-    <footer id="contact" className="py-24 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-800/80">
+    <footer id="contact" className="py-16 sm:py-24 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-800/80">
       {/* Clean Editorial Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4"
+        className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-12 sm:mb-16 gap-4"
       >
         <div>
           <span className="text-xs uppercase font-mono tracking-widest text-crimson font-bold block mb-2">
             Direct Line & Collaboration
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-display uppercase">
+          <h2 className="text-2xl xs:text-3xl sm:text-5xl font-black tracking-tight text-white font-display uppercase">
             Let&apos;s Work Together
           </h2>
         </div>

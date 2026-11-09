@@ -43,22 +43,22 @@ export default function Home() {
       <Hero isReady={curtainLifting} />
 
       {/* React Bits Curvilinear TextLoop Marquee Banner */}
-      <section className="relative z-10 py-4 overflow-hidden border-y border-zinc-800/40 bg-[#09090d]/60 backdrop-blur-sm">
+      <section className="relative z-10 py-3 sm:py-4 overflow-hidden border-y border-zinc-800/40 bg-[#09090d]/60 backdrop-blur-sm">
         <TextLoop
-          text="SOLUTIONS ARCHITECT ✦ REACTIVE SYSTEMS ✦ 3D SIMULATIONS ✦ TECHNOFEST STATE WINNER ✦ MISSION-CRITICAL AI ✦ ZERO-LAG ARCHITECTURE"
+          text="SOLUTIONS ARCHITECT ✦ REACTIVE SYSTEMS ✦ 3D SIMULATIONS ✦ TECHNOFEST 2ND PLACE ✦ MISSION-CRITICAL AI ✦ ZERO-LAG ARCHITECTURE"
           shape="wave"
           speed={65}
           direction="forward"
           separator="✦"
-          curviness={42}
-          tilt={-0.8}
-          fontSize={26}
+          curviness={36}
+          tilt={-0.6}
+          fontSize={22}
           fontWeight={900}
           letterSpacing={2}
           uppercase={true}
           ribbon={true}
           ribbonColor="#18040d"
-          ribbonWidth={66}
+          ribbonWidth={56}
           color="#e11d48"
           scrollBoost={0.4}
           pauseOnHover={true}
