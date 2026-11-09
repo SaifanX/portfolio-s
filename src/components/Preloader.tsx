@@ -21,7 +21,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Steady, readable progression (~4s total duration)
+    // 4s smooth progression
     const intervalTime = 40;
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -77,7 +77,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             <span className="text-zinc-400">BLR · 12°58' N</span>
           </div>
 
-          {/* Center: Hand-Crafted Sequential Cursive Signature of "Saifan" (Unmistakable S) */}
+          {/* Center: Hand-Crafted Sequential Cursive Signature of "Saifan" */}
           <div className="flex flex-col items-center justify-center my-auto w-full">
             {/* Ambient Red Glow in Background */}
             <div className="absolute w-[450px] h-[250px] bg-crimson/20 blur-[110px] pointer-events-none rounded-full" />
@@ -101,11 +101,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  {/* Letter 'S' - Authentic Calligraphic Capital S (Bottom swoop up, loop, curved belly, upward tie) */}
+                  {/* Letter 'S' - Distinct Capital S with dramatic top arch, center waist, and rounded bottom bowl */}
                   <motion.path
-                    d="M 60,140 C 70,110 85,60 105,25 C 115,10 128,15 120,40 C 110,65 95,95 85,120 C 75,145 90,165 115,165 C 135,165 148,145 155,120"
+                    d="M 65,55 C 80,30 115,22 135,38 C 150,50 148,72 130,88 C 110,102 75,108 70,130 C 65,152 85,172 118,170 C 140,168 152,152 158,135"
                     stroke="#ffffff"
-                    strokeWidth="4.5"
+                    strokeWidth="4.8"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     initial={{ pathLength: 0, opacity: 0 }}
@@ -115,7 +115,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'a' - First */}
                   <motion.path
-                    d="M 155,120 C 165,100 185,95 195,110 C 200,120 195,150 175,150 C 160,150 155,135 165,115 C 175,95 195,100 200,120 L 200,150 C 200,155 205,158 215,145"
+                    d="M 158,135 C 168,112 188,105 198,120 C 203,130 198,160 178,160 C 163,160 158,145 168,125 C 178,105 198,110 203,130 L 203,160 C 203,165 208,168 218,155"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -127,7 +127,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'i' - Stem */}
                   <motion.path
-                    d="M 215,145 L 225,110 L 225,150 C 225,155 230,155 240,145"
+                    d="M 218,155 L 228,120 L 228,160 C 228,165 233,165 243,155"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -139,8 +139,8 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'i' - Glowing Ruby Crimson Dot */}
                   <motion.circle
-                    cx="226"
-                    cy="90"
+                    cx="229"
+                    cy="100"
                     r="5.5"
                     fill="#e11d48"
                     initial={{ scale: 0, opacity: 0 }}
@@ -155,7 +155,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'f' - Tall ascender loop, deep descender loop & cross-tie */}
                   <motion.path
-                    d="M 240,145 C 255,120 265,45 275,30 C 285,20 285,40 270,105 L 255,190 C 250,210 260,210 270,190 C 280,170 280,140 265,140 L 295,138"
+                    d="M 243,155 C 258,130 268,55 278,40 C 288,30 288,50 273,115 L 258,200 C 253,220 263,220 273,200 C 283,180 283,150 268,150 L 298,148"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -167,7 +167,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'a' - Second */}
                   <motion.path
-                    d="M 295,138 C 305,116 325,112 335,122 C 340,132 335,152 315,152 C 300,152 298,137 308,119 C 318,102 335,107 340,125 L 340,152 C 340,157 345,157 355,145"
+                    d="M 298,148 C 308,126 328,122 338,132 C 343,142 338,162 318,162 C 303,162 301,147 311,129 C 321,112 338,117 343,135 L 343,162 C 343,167 348,167 358,155"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -179,7 +179,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'n' */}
                   <motion.path
-                    d="M 355,145 L 360,115 L 360,152 M 360,125 C 370,113 390,113 395,130 L 395,152 C 395,157 405,152 420,135"
+                    d="M 358,155 L 363,125 L 363,162 M 363,135 C 373,123 393,123 398,140 L 398,162 C 398,167 408,162 423,145"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -191,7 +191,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Sweeping Crimson Underline Flourish */}
                   <motion.path
-                    d="M 65,175 C 165,175 295,172 445,162 C 470,160 475,155 465,165 C 440,185 405,185 375,185"
+                    d="M 65,185 C 165,185 295,182 445,172 C 470,170 475,165 465,175 C 440,195 405,195 375,195"
                     stroke="#e11d48"
                     strokeWidth="3.2"
                     strokeLinecap="round"
