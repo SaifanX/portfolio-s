@@ -19,7 +19,7 @@ export default function Home() {
       {/* Liquid Ether: Interactive WebGL Fluid Simulation Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <LiquidEther
-          colors={['#5227FF', '#FF9FFC', '#B497CF']}
+          colors={['#4c0519', '#e11d48', '#ff1744']}
           mouseForce={20}
           cursorSize={100}
           persistence={0.75}

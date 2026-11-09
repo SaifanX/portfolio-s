@@ -115,14 +115,18 @@ export default function Hero({ isReady = true }: HeroProps) {
 
       {/* Central Composition: Monumental Typewriter SAIFAN + Cutout Portrait with Fade-in Entry */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center my-auto">
-        <div className="relative w-full h-[220px] sm:h-[280px] md:h-[330px] lg:h-[370px] xl:h-[410px] flex items-end justify-center">
+        <div
+          className="relative w-full h-[220px] sm:h-[280px] md:h-[330px] lg:h-[370px] xl:h-[410px] flex items-end justify-center group/hero-name cursor-pointer"
+          onMouseEnter={() => setIsNameHovered(true)}
+          onMouseLeave={() => setIsNameHovered(false)}
+        >
           {/* Monumental White Display Text BEHIND the image (Typewriter Effect) */}
-          <div
-            className="absolute inset-0 flex items-center justify-center z-10 select-none group"
-            onMouseEnter={() => setIsNameHovered(true)}
-            onMouseLeave={() => setIsNameHovered(false)}
-          >
-            <span className="font-display font-black tracking-tight text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)] pointer-events-auto cursor-pointer">
+          <div className="absolute inset-0 flex items-center justify-center z-10 select-none pointer-events-none">
+            <span
+              className={`font-display font-black tracking-tight text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)] transition-opacity duration-300 ${
+                isNameHovered ? "opacity-0" : "opacity-100"
+              }`}
+            >
               <TypewriterText
                 text="SAIFAN"
                 startTrigger={isReady}
@@ -130,29 +134,6 @@ export default function Hero({ isReady = true }: HeroProps) {
                 speed={75}
               />
             </span>
-
-            {/* Refractive Glass Lens: ONLY appears in Hero when hovering over Mohammed Saifan's name */}
-            <div
-              className={`absolute inset-0 transition-opacity duration-300 ease-out pointer-events-none z-15 ${
-                isNameHovered ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <FluidGlass
-                text="SAIFAN"
-                shape="lens"
-                size={260}
-                refraction={1.2}
-                dispersion={0.4}
-                reflection={0.9}
-                interaction="follow"
-                idle={false}
-                morphOnClick={false}
-                background="transparent"
-                fontFamily="var(--font-display, 'Syne', sans-serif)"
-                fontWeight={900}
-                textColor="#ffffff"
-              />
-            </div>
           </div>
 
           {/* Portrait Image in the Foreground (Follows the curtain lift without fade-in) */}
@@ -163,7 +144,7 @@ export default function Hero({ isReady = true }: HeroProps) {
               duration: 0.95,
               ease: [0.77, 0, 0.175, 1],
             }}
-            className="relative z-20 w-[220px] sm:w-[280px] md:w-[330px] lg:w-[370px] xl:w-[410px] h-full flex items-end justify-center"
+            className="relative z-20 w-[220px] sm:w-[280px] md:w-[330px] lg:w-[370px] xl:w-[410px] h-full flex items-end justify-center pointer-events-none"
           >
             {/* Backlight Glow around the portrait */}
             <motion.div
@@ -185,6 +166,31 @@ export default function Hero({ isReady = true }: HeroProps) {
             {/* Smooth dark vignette blend at the base */}
             <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#09090d] via-[#09090d]/80 to-transparent pointer-events-none" />
           </motion.div>
+
+          {/* 3D Refractive Glass Lens: ONLY active in Hero when hovering over the monumental name */}
+          <div
+            className={`absolute inset-0 transition-opacity duration-300 ease-out pointer-events-none z-30 ${
+              isNameHovered ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <FluidGlass
+              text="SAIFAN"
+              shape="lens"
+              size={280}
+              refraction={1.25}
+              dispersion={0.4}
+              reflection={1.0}
+              tint={0.15}
+              color="#ff1744"
+              interaction="follow"
+              idle={false}
+              morphOnClick={false}
+              background="transparent"
+              fontFamily="'Syne', sans-serif"
+              fontWeight={900}
+              textColor="#ffffff"
+            />
+          </div>
         </div>
 
         {/* Text Placed Directly Below the Image (Typewriter Effect) */}
