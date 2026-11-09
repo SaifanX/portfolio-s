@@ -1,28 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Database, Layers, Sparkles } from "lucide-react";
+import { Terminal, Database, Layers, Sparkles, Cpu } from "lucide-react";
 
 const domains = [
   {
     name: "Languages & Foundations",
     icon: Terminal,
-    skills: ["TypeScript", "Python", "JavaScript", "Kotlin", "HTML5", "Modern CSS"],
+    skills: ["TypeScript", "Python", "JavaScript", "Kotlin", "WebAssembly", "HTML5", "Modern CSS"],
   },
   {
-    name: "Frontend, 3D & Simulation",
+    name: "Frontend, 3D & Compute",
     icon: Layers,
-    skills: ["React 19", "Next.js App Router", "Three.js", "Tailwind CSS", "Framer Motion", "GSAP"],
+    skills: ["React 19", "Next.js App Router", "Three.js", "WebGL Shaders", "Tailwind CSS", "Framer Motion", "GSAP"],
   },
   {
     name: "Reactive Backends & Cloud",
     icon: Database,
-    skills: ["Convex (Real-time)", "Supabase", "Node.js", "Netlify Serverless", "Vercel"],
+    skills: ["Convex (Real-time)", "Supabase", "Node.js", "Netlify Serverless", "Vercel", "Distributed State"],
   },
   {
-    name: "AI Workflows & Precision",
+    name: "AI Systems & Automation",
     icon: Sparkles,
-    skills: ["Google Gemini API", "Groq LPU", "Tesseract OCR", "Vitest", "Git Automation"],
+    skills: ["Google Gemini API", "Groq LPU", "Tesseract OCR", "Vitest", "CI/CD Automation", "AST Compilers"],
   },
 ];
 
@@ -30,7 +30,13 @@ export default function TechnicalArsenal() {
   return (
     <section id="arsenal" className="py-24 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-800/80">
       {/* Clean Editorial Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4"
+      >
         <div>
           <span className="text-xs uppercase font-mono tracking-widest text-crimson font-bold block mb-2">
             Skills & Infrastructure
@@ -42,7 +48,7 @@ export default function TechnicalArsenal() {
         <p className="text-sm font-mono text-zinc-300 max-w-xs sm:text-right">
           Curated tooling engineered for reactive speed, zero lag, and structural reliability.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {domains.map((domain, idx) => {
@@ -50,10 +56,10 @@ export default function TechnicalArsenal() {
           return (
             <motion.div
               key={domain.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="rounded-2xl bg-[#121218] border border-zinc-800 p-6 flex flex-col justify-between shadow-xl hover:border-crimson/50 transition-colors"
             >
               <div>

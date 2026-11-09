@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink, Trophy, Cpu, Eye } from "lucide-react";
 import CanvasRevealEffect from "@/components/CanvasRevealEffect";
+import TechText from "@/components/TechText";
 
 interface Project {
   number: string;
@@ -23,7 +24,7 @@ const flagshipProjects: Project[] = [
     subtitle: "Autonomous Pre-Flight UAV Avionics & AI Co-Pilot",
     badge: "TechnoFest Hackathon 2026 State Winner",
     description:
-      "A pre-flight safety layer for drone pilots featuring geospatial dynamic geofencing, real-time weather analytics, and LLM-driven aviation compliance checks.",
+      "A pre-flight safety layer for drone pilots featuring geospatial dynamic geofencing, real-time ADS-B weather rasterization, and Gemini LLM-driven FAA/DGCA aviation compliance checks. Built with distributed reactive state synchronization.",
     stack: ["React", "TypeScript", "Leaflet", "Gemini API", "Convex"],
     liveUrl: "https://airguard-1.netlify.app",
     githubUrl: "https://github.com/SaifanX/Airguard-Daemons",
@@ -35,7 +36,7 @@ const flagshipProjects: Project[] = [
     subtitle: "Game Theory & Evolutionary Dynamics 3D Engine",
     badge: "Algorithmic Simulation Lab",
     description:
-      "High-performance real-time 3D mathematical simulation engine exploring multi-agent Prisoner's Dilemma, Nash Equilibria, and payoff mutation dynamics.",
+      "High-performance real-time 3D mathematical simulation engine exploring multi-agent Prisoner's Dilemma, Nash Equilibria, spatial cellular mutation vectors, and real-time payoff matrices running at 60 FPS in WebGL.",
     stack: ["React 19", "TypeScript", "Three.js", "Convex", "Vitest"],
     liveUrl: "https://strategos1.netlify.app",
     githubUrl: "https://github.com/SaifanX/Strategos",
@@ -47,11 +48,23 @@ const flagshipProjects: Project[] = [
     subtitle: "Enterprise Intelligence & Forensic Entity Registry",
     badge: "AI for Bharat Hackathon Finalist",
     description:
-      "Forensic-grade entity resolution platform across fragmented national registries (GSTIN, PAN, MCA) with real-time arbitration command centers.",
+      "Forensic-grade entity resolution platform across fragmented national registries (GSTIN, PAN, MCA) with real-time arbitration command centers and cross-state corporate fraud relationship graphs.",
     stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "Supabase"],
     liveUrl: "https://bbie-ai4bharat.netlify.app",
     githubUrl: "https://github.com/SaifanX/bbie-prototype",
     accent: "from-cyan-500/20 to-transparent",
+  },
+  {
+    number: "04",
+    title: "Omnibundler",
+    subtitle: "AI-Native React AST Compiler & Single-File Bundler",
+    badge: "Open Source Tooling",
+    description:
+      "High-speed compiler architecture that traverses React ASTs, tree-shakes modular component trees, and packages full-stack React applications into self-contained single-file HTML executables with zero server dependencies.",
+    stack: ["TypeScript", "Babel AST", "React", "Compiler Architecture"],
+    liveUrl: "https://github.com/SaifanX/Omnibundler-AI",
+    githubUrl: "https://github.com/SaifanX/Omnibundler-AI",
+    accent: "from-purple-500/20 to-transparent",
   },
 ];
 
@@ -59,38 +72,44 @@ const secondaryProjects = [
   {
     title: "FastPDF",
     subtitle: "Client-Side Document Engine",
-    description: "100% private in-browser image-to-PDF compiler with integrated Tesseract OCR.",
+    description: "100% private in-browser image-to-PDF compiler with integrated WebAssembly Tesseract OCR and zero-server retention.",
     tags: ["React", "TypeScript", "Tesseract.js", "Vite"],
     github: "https://github.com/SaifanX/FastPDF",
   },
   {
-    title: "Omnibundler-AI",
-    subtitle: "Bidirectional Compiler",
-    description: "AI-native bundler that compresses React apps into single-file HTML & extracts components.",
-    tags: ["TypeScript", "Compiler", "React AST"],
-    github: "https://github.com/SaifanX/Omnibundler-AI",
-  },
-  {
     title: "MBSYS & Hunar",
     subtitle: "Enterprise Web Systems",
-    description: "Production architectural design studio and enterprise web platforms serving live clients.",
+    description: "Production architectural design studio and enterprise web platforms with real-time CMS serving paying live clients.",
     tags: ["Next.js", "Convex", "Tailwind CSS"],
     github: "https://github.com/SaifanX/mbsys-1",
   },
   {
     title: "Vault",
     subtitle: "NCERT Academic OS",
-    description: "Mechanical Academic OS for NCERT Grade 9 with automated curriculum validation.",
+    description: "Mechanical Academic OS for NCERT Grade 9 with automated curriculum validation and offline-first reactive sandboxes.",
     tags: ["Convex", "EdTech", "React"],
     github: "https://github.com/SaifanX/Vault",
+  },
+  {
+    title: "AirGuard Daemons",
+    subtitle: "Distributed Aviation Workers",
+    description: "High-throughput asynchronous cron daemons that continuously poll meteorological stations and validate flight zones.",
+    tags: ["Node.js", "TypeScript", "Serverless", "APIs"],
+    github: "https://github.com/SaifanX/Airguard-Daemons",
   },
 ];
 
 export default function SelectedProjects() {
   return (
     <section id="projects" className="py-24 px-4 sm:px-6 max-w-6xl mx-auto">
-      {/* Clean Editorial Header (No brackets or hacker slashes) */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4">
+      {/* Clean Editorial Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4"
+      >
         <div>
           <span className="text-xs uppercase font-mono tracking-widest text-crimson font-bold block mb-2">
             Portfolio Showcase
@@ -102,25 +121,25 @@ export default function SelectedProjects() {
         <p className="text-sm font-mono text-zinc-300 max-w-xs sm:text-right">
           Architectural feats, hackathon wins, and production systems engineered under pressure.
         </p>
-      </div>
+      </motion.div>
 
-      {/* Flagship Projects Grid */}
+      {/* Flagship Projects Grid with Framer Motion Scroll Entrance */}
       <div className="space-y-8 mb-16">
         {flagshipProjects.map((project, idx) => (
           <motion.div
             key={project.title}
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: idx * 0.1 }}
-            className="group relative rounded-3xl bg-[#0e0e14]/90 border border-zinc-800/90 p-6 sm:p-10 hover:border-crimson/70 transition-all duration-300 overflow-hidden shadow-2xl"
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative rounded-3xl bg-[#0e0e14]/90 border border-zinc-800/90 p-5 sm:p-8 lg:p-10 hover:border-crimson/70 transition-all duration-300 overflow-hidden shadow-2xl"
           >
             {/* Ambient Background Gradient on Hover */}
             <div
               className={`absolute inset-0 bg-gradient-to-r ${project.accent} opacity-30 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none`}
             />
 
-            {/* Aceternity & Clerk-style Canvas Reveal Effect (Evident matrix, radiant spotlight on hover) */}
+            {/* Aceternity & Clerk-style Canvas Reveal Effect (Interactive Dots Tracking Cursor) */}
             <div className="absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
               <CanvasRevealEffect
                 animationSpeed={0.65}
@@ -143,10 +162,10 @@ export default function SelectedProjects() {
             </div>
 
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-start justify-between gap-8">
-              {/* Left Column: Number, Title, Badge */}
+              {/* Left Column: Number, TechText Title, Badge */}
               <div className="lg:max-w-xl space-y-4">
                 <div className="flex items-center gap-3">
-                  {/* Vibrant Red Project Number (Reference 2 style) */}
+                  {/* Vibrant Red Project Number */}
                   <span className="text-3xl sm:text-4xl font-mono font-black text-crimson">
                     {project.number}
                   </span>
@@ -159,9 +178,28 @@ export default function SelectedProjects() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-4xl font-extrabold text-white font-display group-hover:text-crimson transition-colors">
-                    {project.title}
-                  </h3>
+                  {/* React Bits TechText for Flagship Titles */}
+                  <div className="w-full max-w-[320px] sm:max-w-md h-12 sm:h-14 -ml-1">
+                    <TechText
+                      text={project.title}
+                      fontWeight={900}
+                      fontSize={38}
+                      letterSpacing={-0.03}
+                      align="left"
+                      color="#ffffff"
+                      accentColor="#e11d48"
+                      dashLength={4}
+                      dashGap={2}
+                      strokeWidth={1.5}
+                      reveal="letter"
+                      specks={15}
+                      clickKick={true}
+                      draggable={true}
+                      bounce={0.4}
+                      sweep={true}
+                      className="h-full"
+                    />
+                  </div>
                   <p className="text-sm font-mono text-zinc-400 mt-1 font-medium">
                     {project.subtitle}
                   </p>
@@ -184,14 +222,14 @@ export default function SelectedProjects() {
                 </div>
               </div>
 
-              {/* Right Column: Direct Launch Actions */}
-              <div className="flex flex-row lg:flex-col items-center lg:items-end gap-3 pt-4 lg:pt-0">
+              {/* Right Column: CTA Buttons */}
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 min-w-[200px] w-full sm:w-auto">
                 {project.liveUrl && (
                   <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-6 py-3 text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(225,29,72,0.5)] group/btn"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-6 py-3 text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(225,29,72,0.4)] active:scale-95 group/btn w-full sm:w-auto"
                   >
                     <span>Launch Live Engine</span>
                     <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
@@ -201,9 +239,9 @@ export default function SelectedProjects() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#181822] border border-zinc-700 hover:border-zinc-500 text-zinc-200 hover:text-white px-5 py-3 text-xs sm:text-sm transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#181822] hover:bg-zinc-800 border border-zinc-700/80 text-zinc-200 hover:text-white font-semibold px-6 py-3 text-xs sm:text-sm transition-all active:scale-95 w-full sm:w-auto"
                 >
-                  <Github className="w-4 h-4 text-zinc-400" />
+                  <Github className="w-4 h-4" />
                   <span>Inspect Code</span>
                 </a>
               </div>
@@ -212,45 +250,89 @@ export default function SelectedProjects() {
         ))}
       </div>
 
-      {/* Secondary Systems Bento Grid */}
-      <div className="mt-12">
-        <h3 className="text-base font-bold uppercase tracking-wider text-crimson font-mono mb-6">
-          More Shipped Architecture & Tools
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {secondaryProjects.map((p) => (
-            <a
+      {/* Architectural Impact Metrics Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6 }}
+        className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-16 p-6 sm:p-8 rounded-3xl bg-[#0e0e14]/90 border border-zinc-800/80 shadow-2xl backdrop-blur-sm"
+      >
+        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
+          <div className="text-2xl sm:text-4xl font-mono font-black text-white">15+</div>
+          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Shipped Repositories</div>
+        </div>
+        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
+          <div className="text-2xl sm:text-4xl font-mono font-black text-white">1st Place</div>
+          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">TechnoFest 2026 Winner</div>
+        </div>
+        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
+          <div className="text-2xl sm:text-4xl font-mono font-black text-white">&lt;50ms</div>
+          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Reactive State Latency</div>
+        </div>
+        <div className="space-y-1 p-3 sm:p-4 border-l-2 border-crimson">
+          <div className="text-2xl sm:text-4xl font-mono font-black text-white">100%</div>
+          <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">WASM / WebGL Compute</div>
+        </div>
+      </motion.div>
+
+      {/* Secondary Projects: Editorial Grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6 }}
+        className="border-t border-zinc-800/80 pt-12"
+      >
+        <div className="flex items-center gap-2 mb-8 text-zinc-400">
+          <Cpu className="w-4 h-4 text-crimson" />
+          <h3 className="text-sm font-mono uppercase tracking-widest font-bold text-zinc-300">
+            More Shipped Architecture & Tools
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {secondaryProjects.map((p, idx) => (
+            <motion.a
               key={p.title}
               href={p.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group rounded-2xl bg-[#121218] border border-zinc-800 p-6 hover:border-crimson/50 transition-all duration-300 flex flex-col justify-between shadow-lg"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              className="group p-6 rounded-2xl bg-[#0e0e14]/80 border border-zinc-800/80 hover:border-crimson/60 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <h4 className="text-lg font-bold text-white group-hover:text-crimson transition-colors">
+                <div className="flex items-start justify-between gap-4 mb-2">
+                  <h4 className="text-lg font-bold text-white group-hover:text-crimson transition-colors font-display">
                     {p.title}
                   </h4>
                   <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-crimson group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </div>
-                <p className="text-xs font-mono text-zinc-400 mb-2 font-medium">{p.subtitle}</p>
-                <p className="text-xs text-zinc-300 leading-relaxed mb-4">{p.description}</p>
+                <div className="text-xs font-mono text-crimson font-medium mb-3">
+                  {p.subtitle}
+                </div>
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-4">
+                  {p.description}
+                </p>
               </div>
 
-              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-zinc-800">
-                {p.tags.map((t) => (
+              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-zinc-800/50">
+                {p.tags.map((tag) => (
                   <span
-                    key={t}
-                    className="text-[11px] font-mono text-zinc-400 bg-[#171722] px-2 py-0.5 rounded border border-zinc-700/60"
+                    key={tag}
+                    className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400"
                   >
-                    {t}
+                    {tag}
                   </span>
                 ))}
               </div>
-            </a>
+            </motion.a>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

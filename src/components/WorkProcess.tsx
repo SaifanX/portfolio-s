@@ -45,7 +45,13 @@ export default function WorkProcess() {
   return (
     <section id="process" className="py-24 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-800/80">
       {/* Clean Editorial Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-zinc-800/80 pb-6 mb-16 gap-4"
+      >
         <div>
           <span className="text-xs uppercase font-mono tracking-widest text-crimson font-bold block mb-2">
             Engineering Methodology
@@ -57,7 +63,7 @@ export default function WorkProcess() {
         <p className="text-sm font-mono text-zinc-300 max-w-xs sm:text-right">
           How I take complex ideas from mathematical blueprint to production systems.
         </p>
-      </div>
+      </motion.div>
 
       {/* 5-Step Process Timeline Cards */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
@@ -66,10 +72,10 @@ export default function WorkProcess() {
           return (
             <motion.div
               key={s.step}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="group relative rounded-2xl bg-[#121218] border border-zinc-800 p-6 flex flex-col justify-between hover:border-crimson/60 transition-all duration-300 shadow-xl"
             >
               <div>

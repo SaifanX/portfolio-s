@@ -38,7 +38,7 @@ export default function CanvasRevealEffect({
     let width = (canvas.width = container.clientWidth);
     let height = (canvas.height = container.clientHeight);
 
-    let mouse = { x: -1000, y: -1000, active: false };
+    const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, active: false };
 
     const handleResize = () => {
       if (!container || !canvas) return;
@@ -46,27 +46,38 @@ export default function CanvasRevealEffect({
       height = canvas.height = container.clientHeight;
     };
 
+    const targetEl = container.parentElement || container;
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
       mouse.active = true;
+      if (mouse.x < -500) {
+        mouse.x = mouse.targetX;
+        mouse.y = mouse.targetY;
+      }
     };
 
-    const handleMouseEnter = () => {
+    const handleMouseEnter = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
+      mouse.x = mouse.targetX;
+      mouse.y = mouse.targetY;
       mouse.active = true;
     };
 
     const handleMouseLeave = () => {
       mouse.active = false;
-      mouse.x = -1000;
-      mouse.y = -1000;
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
     };
 
     window.addEventListener("resize", handleResize);
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
+    targetEl.addEventListener("mousemove", handleMouseMove as EventListener);
+    targetEl.addEventListener("mouseenter", handleMouseEnter as EventListener);
+    targetEl.addEventListener("mouseleave", handleMouseLeave as EventListener);
 
     let time = 0;
 
@@ -74,22 +85,31 @@ export default function CanvasRevealEffect({
       ctx.clearRect(0, 0, width, height);
       time += animationSpeed * 0.04;
 
+      // Smooth cursor follow interpolation
+      if (mouse.active) {
+        mouse.x += (mouse.targetX - mouse.x) * 0.22;
+        mouse.y += (mouse.targetY - mouse.y) * 0.22;
+      } else {
+        mouse.x += (-1000 - mouse.x) * 0.15;
+        mouse.y += (-1000 - mouse.y) * 0.15;
+      }
+
       const cols = Math.ceil(width / spacing);
       const rows = Math.ceil(height / spacing);
 
-      // Draw subtle radial glow spotlight behind dots if mouse is active
-      if (mouse.active && mouse.x > 0 && mouse.y > 0) {
+      // Draw dynamic radial glow spotlight directly tracking cursor
+      if (mouse.x > -100 && mouse.x < width + 100 && mouse.y > -100 && mouse.y < height + 100) {
         const radGlow = ctx.createRadialGradient(
           mouse.x,
           mouse.y,
           0,
           mouse.x,
           mouse.y,
-          240
+          260
         );
         const [gr, gg, gb] = colors[0];
-        radGlow.addColorStop(0, `rgba(${gr}, ${gg}, ${gb}, 0.22)`);
-        radGlow.addColorStop(0.5, `rgba(${gr}, ${gg}, ${gb}, 0.08)`);
+        radGlow.addColorStop(0, `rgba(${gr}, ${gg}, ${gb}, 0.28)`);
+        radGlow.addColorStop(0.4, `rgba(${gr}, ${gg}, ${gb}, 0.12)`);
         radGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = radGlow;
         ctx.fillRect(0, 0, width, height);
@@ -97,49 +117,57 @@ export default function CanvasRevealEffect({
 
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
-          const x = i * spacing + spacing / 2;
-          const y = j * spacing + spacing / 2;
+          const baseX = i * spacing + spacing / 2;
+          const baseY = j * spacing + spacing / 2;
 
-          // Ambient Clerk-style wave pulsation
+          // Ambient Clerk wave pulsation
           const wave =
             Math.sin(i * 0.28 + time) * Math.cos(j * 0.28 + time * 0.75) * 0.5 + 0.5;
 
           // Proximity calculation to cursor
-          const dx = x - mouse.x;
-          const dy = y - mouse.y;
+          const dx = baseX - mouse.x;
+          const dy = baseY - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           const maxDist = 240;
 
           let proximity = 0;
-          if (mouse.active && dist < maxDist) {
-            proximity = Math.pow(1 - dist / maxDist, 1.5);
+          let shiftX = 0;
+          let shiftY = 0;
+
+          if (dist < maxDist) {
+            proximity = Math.pow(1 - dist / maxDist, 1.6);
+            // Dots follow and react gently to cursor flow
+            const angle = Math.atan2(dy, dx);
+            const nudge = proximity * 4.5;
+            shiftX = Math.cos(angle) * nudge;
+            shiftY = Math.sin(angle) * nudge;
           }
 
-          // Dynamic color palette selection
+          const x = baseX + shiftX;
+          const y = baseY + shiftY;
+
+          // Dynamic color selection
           const colorIndex =
-            Math.floor((wave * 0.3 + proximity * 0.7) * colors.length) % colors.length;
+            Math.floor((wave * 0.25 + proximity * 0.75) * colors.length) % colors.length;
           const [r, g, b] = colors[colorIndex];
 
-          // High visibility evident alpha curves
-          const baseAlpha = 0.25 + wave * 0.15; // Clearly evident matrix at rest
-          const activeAlpha = proximity * 0.85;
+          const baseAlpha = 0.22 + wave * 0.12;
+          const activeAlpha = proximity * 0.88;
           const alpha = Math.min(baseAlpha + activeAlpha, 1.0);
 
-          // Dot size scaling
-          const currentSize = dotSize + proximity * 2.8;
+          const currentSize = dotSize + proximity * 3.2;
 
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
 
-          // Draw crisp micro-dot / circle
           ctx.beginPath();
           ctx.arc(x, y, currentSize / 2, 0, Math.PI * 2);
           ctx.fill();
 
-          // High-energy specular halo for dots very close to cursor
-          if (proximity > 0.5) {
-            ctx.fillStyle = `rgba(255, 255, 255, ${proximity * 0.6})`;
+          // High-energy specular core for dots very close to cursor
+          if (proximity > 0.45) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${proximity * 0.75})`;
             ctx.beginPath();
-            ctx.arc(x, y, (currentSize * 0.6) / 2, 0, Math.PI * 2);
+            ctx.arc(x, y, (currentSize * 0.55) / 2, 0, Math.PI * 2);
             ctx.fill();
           }
         }
@@ -153,9 +181,9 @@ export default function CanvasRevealEffect({
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
+      targetEl.removeEventListener("mousemove", handleMouseMove as EventListener);
+      targetEl.removeEventListener("mouseenter", handleMouseEnter as EventListener);
+      targetEl.removeEventListener("mouseleave", handleMouseLeave as EventListener);
     };
   }, [animationSpeed, colors, dotSize, spacing]);
 

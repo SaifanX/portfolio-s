@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
+import StaggeredMenu from "@/components/StaggeredMenu";
 
 export default function Navbar() {
   const [time, setTime] = useState("");
-  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -24,15 +24,6 @@ export default function Navbar() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const navLinks = [
     { name: "Projects", href: "#projects" },
     { name: "Process", href: "#process" },
@@ -40,20 +31,8 @@ export default function Navbar() {
   ];
 
   return (
-    <header
-      className={`fixed left-0 right-0 z-40 transition-all duration-300 ease-out ${
-        isScrolled
-          ? "top-4 px-4 sm:px-8 py-0"
-          : "top-0 px-4 sm:px-10 py-3.5 sm:py-4 border-b border-zinc-800/40 bg-[#09090d]/85 backdrop-blur-md"
-      }`}
-    >
-      <nav
-        className={`mx-auto flex items-center justify-between transition-all duration-300 ease-out ${
-          isScrolled
-            ? "max-w-6xl rounded-full bg-[#0e0e12]/85 backdrop-blur-md border border-white/10 px-5 sm:px-7 py-2.5 sm:py-3 shadow-2xl"
-            : "max-w-7xl px-1 sm:px-3 py-0.5"
-        }`}
-      >
+    <header className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-10 py-3.5 border-b border-zinc-800/40 bg-[#09090d]/85 backdrop-blur-md">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Left: Clean Brand Logo & Location/Time */}
         <div className="flex items-center gap-3">
           <a
@@ -68,13 +47,13 @@ export default function Navbar() {
           </span>
         </div>
 
-        {/* Right: Quick Links & Contact */}
-        <div className="flex items-center gap-4 sm:gap-7 text-xs sm:text-sm font-medium">
+        {/* Right Desktop: Quick Links & Contact */}
+        <div className="hidden sm:flex items-center gap-7 text-xs sm:text-sm font-medium">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="group relative inline-flex items-center text-zinc-300 hover:text-white transition-colors duration-200 hidden sm:inline-flex py-1"
+              className="group relative inline-flex items-center text-zinc-300 hover:text-white transition-colors duration-200 py-1"
             >
               <span className="inline-block transition-transform duration-200 ease-out group-hover:-translate-x-0.5">
                 {link.name}
@@ -98,6 +77,34 @@ export default function Navbar() {
               <ArrowUpRight className="w-3.5 h-3.5 absolute inset-0 transition-all duration-300 ease-out -translate-x-3 translate-y-3 opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 stroke-[2.5]" />
             </span>
           </a>
+        </div>
+
+        {/* Mobile: React Bits StaggeredMenu */}
+        <div className="sm:hidden flex items-center">
+          <StaggeredMenu
+            position="right"
+            items={[
+              { label: "Home", ariaLabel: "Go to home", link: "#" },
+              { label: "Projects", ariaLabel: "View projects", link: "#projects" },
+              { label: "Process", ariaLabel: "View process", link: "#process" },
+              { label: "Arsenal", ariaLabel: "View arsenal", link: "#arsenal" },
+              { label: "Contact", ariaLabel: "Get in touch", link: "#contact" },
+            ]}
+            socialItems={[
+              { label: "GitHub", link: "https://github.com/SaifanX" },
+              { label: "LinkedIn", link: "https://www.linkedin.com/in/saifanx/" },
+              { label: "X", link: "https://x.com/saifanx07" },
+              { label: "Email", link: "mailto:saifanmohammad39@gmail.com" },
+            ]}
+            displaySocials={true}
+            displayItemNumbering={true}
+            menuButtonColor="#ffffff"
+            openMenuButtonColor="#ffffff"
+            colors={["#1c040d", "#4c0519", "#9f1239", "#e11d48"]}
+            accentColor="#e11d48"
+            logoUrl=""
+            isFixed={false}
+          />
         </div>
       </nav>
     </header>
