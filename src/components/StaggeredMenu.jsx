@@ -322,6 +322,9 @@ export const StaggeredMenu = ({
 
   const closeMenu = useCallback(() => {
     if (openRef.current) {
+      if (document.activeElement && panelRef.current && panelRef.current.contains(document.activeElement)) {
+        toggleBtnRef.current?.focus();
+      }
       openRef.current = false;
       setOpen(false);
       onMenuClose?.();
@@ -412,7 +415,13 @@ export const StaggeredMenu = ({
         </button>
       </header>
 
-      <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>
+      <aside
+        id="staggered-menu-panel"
+        ref={panelRef}
+        className="staggered-menu-panel"
+        aria-hidden={!open}
+        inert={!open ? "" : undefined}
+      >
         <div className="sm-panel-inner">
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items && items.length ? (
