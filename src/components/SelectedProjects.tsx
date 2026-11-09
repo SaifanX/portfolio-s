@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink, Trophy, Cpu, Eye } from "lucide-react";
+import CanvasRevealEffect from "@/components/CanvasRevealEffect";
 
 interface Project {
   number: string;
@@ -112,12 +113,34 @@ export default function SelectedProjects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: idx * 0.1 }}
-            className="group relative rounded-3xl bg-[#121218] border border-zinc-800 p-6 sm:p-10 hover:border-crimson/60 transition-all duration-300 overflow-hidden shadow-2xl"
+            className="group relative rounded-3xl bg-[#0e0e14]/90 border border-zinc-800/90 p-6 sm:p-10 hover:border-crimson/70 transition-all duration-300 overflow-hidden shadow-2xl"
           >
             {/* Ambient Background Gradient on Hover */}
             <div
-              className={`absolute inset-0 bg-gradient-to-r ${project.accent} opacity-40 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+              className={`absolute inset-0 bg-gradient-to-r ${project.accent} opacity-30 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none`}
             />
+
+            {/* Aceternity & Clerk-style Canvas Reveal Effect (Evident matrix, radiant spotlight on hover) */}
+            <div className="absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              <CanvasRevealEffect
+                animationSpeed={0.65}
+                dotSize={3}
+                spacing={16}
+                colors={
+                  project.title === "BBIE"
+                    ? [
+                        [6, 182, 212],
+                        [59, 130, 246],
+                        [255, 255, 255],
+                      ]
+                    : [
+                        [225, 29, 72],
+                        [251, 113, 133],
+                        [255, 255, 255],
+                      ]
+                }
+              />
+            </div>
 
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-start justify-between gap-8">
               {/* Left Column: Number, Title, Badge */}

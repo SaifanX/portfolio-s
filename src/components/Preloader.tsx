@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface PreloaderProps {
   onComplete: () => void;
+  onExitStart?: () => void;
 }
 
 const greetings = [
@@ -15,29 +16,32 @@ const greetings = [
   "Mohammed Saifan.",
 ];
 
-export default function Preloader({ onComplete }: PreloaderProps) {
+export default function Preloader({ onComplete, onExitStart }: PreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [greetingIndex, setGreetingIndex] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
 
+  // Slower, deliberate number-by-number count up (~5.2s total)
   useEffect(() => {
-    // 4s smooth progression
-    const intervalTime = 40;
+    const intervalTime = 52; // 52ms * 100 = 5.2s steady, visible number-by-number progression
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(() => setIsExiting(true), 650);
+          setTimeout(() => {
+            setIsExiting(true);
+            onExitStart?.();
+          }, 750);
           return 100;
         }
         return prev + 1;
       });
     }, intervalTime);
 
-    // Safety fallback
     const safetyTimeout = setTimeout(() => {
       setIsExiting(true);
-    }, 5500);
+      onExitStart?.();
+    }, 7000);
 
     return () => {
       clearInterval(timer);
@@ -45,11 +49,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     };
   }, []);
 
-  // Cycle greetings
+  // Cycle greetings smoothly
   useEffect(() => {
     const greetingTimer = setInterval(() => {
       setGreetingIndex((prev) => (prev + 1) % greetings.length);
-    }, 850);
+    }, 1100);
 
     return () => clearInterval(greetingTimer);
   }, []);
@@ -66,18 +70,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           }}
           className="fixed inset-0 z-50 flex flex-col justify-between bg-[#08080c] px-8 py-10 sm:px-14 sm:py-12 md:px-20 md:py-16 text-white select-none pointer-events-auto"
         >
-          {/* Top Bar Status */}
-          <div className="flex items-center justify-between text-xs tracking-[0.25em] uppercase text-zinc-400 font-mono">
-            <span className="flex items-center gap-2.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-crimson animate-pulse shadow-[0_0_10px_#e11d48]" />
-              <span className="text-zinc-200 font-semibold">SAIFAN</span>
-              <span className="text-zinc-600">//</span>
-              <span className="text-zinc-400">Digital Lab</span>
-            </span>
-            <span className="text-zinc-400">BLR · 12°58' N</span>
-          </div>
+          {/* Top Bar removed as requested */}
+          <div className="h-6" />
 
-          {/* Center: Hand-Crafted Sequential Cursive Signature of "Saifan" */}
+          {/* Center: Hand-Crafted Sequential Cursive Signature with Correct, Non-Mirrored S */}
           <div className="flex flex-col items-center justify-center my-auto w-full">
             {/* Ambient Red Glow in Background */}
             <div className="absolute w-[450px] h-[250px] bg-crimson/20 blur-[110px] pointer-events-none rounded-full" />
@@ -101,11 +97,11 @@ export default function Preloader({ onComplete }: PreloaderProps) {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  {/* Letter 'S' - Distinct Capital S with dramatic top arch, center waist, and rounded bottom bowl */}
+                  {/* Letter 'S' - Classic Capital S */}
                   <motion.path
-                    d="M 65,55 C 80,30 115,22 135,38 C 150,50 148,72 130,88 C 110,102 75,108 70,130 C 65,152 85,172 118,170 C 140,168 152,152 158,135"
+                    d="M 130,40 C 115,22 85,25 75,45 C 68,60 78,80 95,92 C 115,105 138,118 138,140 C 138,165 105,175 80,165 C 70,155 75,145 90,145 C 110,145 140,140 155,120"
                     stroke="#ffffff"
-                    strokeWidth="4.8"
+                    strokeWidth="4.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     initial={{ pathLength: 0, opacity: 0 }}
@@ -115,7 +111,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'a' - First */}
                   <motion.path
-                    d="M 158,135 C 168,112 188,105 198,120 C 203,130 198,160 178,160 C 163,160 158,145 168,125 C 178,105 198,110 203,130 L 203,160 C 203,165 208,168 218,155"
+                    d="M 155,120 C 165,100 185,95 195,110 C 200,120 195,150 175,150 C 160,150 155,135 165,115 C 175,95 195,100 200,120 L 200,150 C 200,155 205,158 215,145"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -127,7 +123,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'i' - Stem */}
                   <motion.path
-                    d="M 218,155 L 228,120 L 228,160 C 228,165 233,165 243,155"
+                    d="M 215,145 L 225,110 L 225,150 C 225,155 230,155 240,145"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -139,8 +135,8 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'i' - Glowing Ruby Crimson Dot */}
                   <motion.circle
-                    cx="229"
-                    cy="100"
+                    cx="226"
+                    cy="90"
                     r="5.5"
                     fill="#e11d48"
                     initial={{ scale: 0, opacity: 0 }}
@@ -155,7 +151,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'f' - Tall ascender loop, deep descender loop & cross-tie */}
                   <motion.path
-                    d="M 243,155 C 258,130 268,55 278,40 C 288,30 288,50 273,115 L 258,200 C 253,220 263,220 273,200 C 283,180 283,150 268,150 L 298,148"
+                    d="M 240,145 C 255,120 265,45 275,30 C 285,20 285,40 270,105 L 255,190 C 250,210 260,210 270,190 C 280,170 280,140 265,140 L 295,138"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -167,7 +163,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'a' - Second */}
                   <motion.path
-                    d="M 298,148 C 308,126 328,122 338,132 C 343,142 338,162 318,162 C 303,162 301,147 311,129 C 321,112 338,117 343,135 L 343,162 C 343,167 348,167 358,155"
+                    d="M 295,138 C 305,116 325,112 335,122 C 340,132 335,152 315,152 C 300,152 298,137 308,119 C 318,102 335,107 340,125 L 340,152 C 340,157 345,157 355,145"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -179,7 +175,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Letter 'n' */}
                   <motion.path
-                    d="M 358,155 L 363,125 L 363,162 M 363,135 C 373,123 393,123 398,140 L 398,162 C 398,167 408,162 423,145"
+                    d="M 355,145 L 360,115 L 360,152 M 360,125 C 370,113 390,113 395,130 L 395,152 C 395,157 405,152 420,135"
                     stroke="#ffffff"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -191,7 +187,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
                   {/* Sweeping Crimson Underline Flourish */}
                   <motion.path
-                    d="M 65,185 C 165,185 295,182 445,172 C 470,170 475,165 465,175 C 440,195 405,195 375,195"
+                    d="M 65,175 C 165,175 295,172 445,162 C 470,160 475,155 465,165 C 440,185 405,185 375,185"
                     stroke="#e11d48"
                     strokeWidth="3.2"
                     strokeLinecap="round"
@@ -214,34 +210,57 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             </div>
           </div>
 
-          {/* Bottom Bar: Loading counter on left, Typewriter on right */}
-          <div className="flex items-end justify-between border-t border-zinc-800/80 pt-6">
+          {/* Bottom Bar: Cleaned (Border removed as requested) + Slower Rolling Ticker */}
+          <div className="flex items-end justify-between pt-6">
+            {/* Cinematic Rolling Number Ticker (Steady number-by-number roll) */}
             <div className="font-mono">
               <span className="text-xs text-zinc-400 block uppercase tracking-wider mb-1 font-medium">
                 Calibrating
               </span>
-              <span className="text-4xl sm:text-6xl font-bold tracking-tight text-white tabular-nums">
-                {String(progress).padStart(2, "0")}
+              <div className="flex items-baseline overflow-hidden h-12 sm:h-16 relative">
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    key={progress}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    exit={{ y: "-100%", opacity: 0 }}
+                    transition={{
+                      duration: 0.22,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="text-4xl sm:text-6xl font-bold tracking-tight text-white tabular-nums inline-block leading-none"
+                  >
+                    {String(progress).padStart(2, "0")}
+                  </motion.span>
+                </AnimatePresence>
                 <span className="text-crimson font-light text-2xl sm:text-3xl ml-1">
                   %
                 </span>
-              </span>
+              </div>
             </div>
 
+            {/* Cinematic Directive Text (Rolls up from below) */}
             <div className="text-right font-mono">
               <span className="text-xs text-zinc-400 block uppercase tracking-wider mb-1 font-medium">
                 Directive
               </span>
-              <motion.span
-                key={greetingIndex}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.25 }}
-                className="text-base sm:text-xl font-medium text-crimson block font-sans"
-              >
-                {greetings[greetingIndex]}
-              </motion.span>
+              <div className="overflow-hidden h-7 sm:h-9 relative flex items-center justify-end">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={greetingIndex}
+                    initial={{ y: "110%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    exit={{ y: "-110%", opacity: 0 }}
+                    transition={{
+                      duration: 0.45,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="text-base sm:text-xl font-medium text-crimson block font-sans leading-none"
+                  >
+                    {greetings[greetingIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </motion.div>
