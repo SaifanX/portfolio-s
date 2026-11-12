@@ -104,12 +104,12 @@ export default function Hero({ isReady = true }: HeroProps) {
       {/* Grid Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none" />
 
-      {/* Central Composition: Monumental Typewriter SAIFAN + Cutout Portrait */}
+      {/* Central Composition: Monumental Typewriter SAIFAN + Cutout Portrait (Mirrored on Mobile & Desktop) */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center my-auto">
-        <div className="relative w-full py-4 md:py-0 md:h-[350px] lg:h-[390px] xl:h-[420px] flex items-center md:items-end justify-center select-none">
-          {/* Monumental White Display Text (Scales down to 18vw on mobile) */}
-          <div className="relative md:absolute md:inset-0 flex items-center justify-center z-10 pointer-events-none text-center">
-            <h1 className="hero-name font-display font-black tracking-tight text-[18vw] md:text-[9.5rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)]">
+        <div className="relative w-full h-[270px] xs:h-[310px] sm:h-[350px] md:h-[380px] lg:h-[410px] xl:h-[440px] flex items-end justify-center select-none">
+          {/* Monumental White Display Text */}
+          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none text-center">
+            <h1 className="hero-name font-display font-black tracking-tight text-[22vw] sm:text-[18vw] md:text-[9.5rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)]">
               <TypewriterText
                 text="SAIFAN"
                 delay={150}
@@ -118,7 +118,7 @@ export default function Hero({ isReady = true }: HeroProps) {
             </h1>
           </div>
 
-          {/* Portrait Image (Hidden on mobile < 768px, visible on desktop behind foreground text) */}
+          {/* Portrait Image (Visible & integrated across mobile and desktop) */}
           <motion.div
             initial={{ y: 90 }}
             animate={isReady ? { y: 0 } : { y: 90 }}
@@ -126,7 +126,7 @@ export default function Hero({ isReady = true }: HeroProps) {
               duration: 0.95,
               ease: [0.77, 0, 0.175, 1],
             }}
-            className="hero-portrait hidden md:flex relative z-20 md:w-[350px] lg:w-[390px] xl:w-[420px] h-full items-end justify-center pointer-events-none"
+            className="hero-portrait flex relative z-20 w-[240px] xs:w-[280px] sm:w-[320px] md:w-[350px] lg:w-[390px] xl:w-[420px] h-full items-end justify-center pointer-events-none"
           >
             {/* Backlight Glow around the portrait */}
             <motion.div
@@ -140,24 +140,20 @@ export default function Hero({ isReady = true }: HeroProps) {
               src="/saifan.png"
               alt="Mohammed Saifan"
               fill
-              sizes="(max-width: 768px) 100vw, 500px"
+              sizes="(max-width: 640px) 280px, (max-width: 768px) 350px, 450px"
               priority
               quality={85}
               className="object-contain object-bottom select-none pointer-events-none filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)]"
             />
 
             {/* Smooth dark vignette blend at the base */}
-            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#09090d] via-[#09090d]/80 to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-14 sm:h-16 bg-gradient-to-t from-[#09090d] via-[#09090d]/80 to-transparent pointer-events-none" />
           </motion.div>
         </div>
 
         {/* Text Placed Directly Below */}
-        <div className="relative z-30 text-center mt-3 sm:mt-6 px-3 flex flex-col items-center gap-2.5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-crimson/15 border border-crimson/40 text-[11px] font-mono text-zinc-300 font-semibold shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-crimson animate-pulse" />
-            <span>MOHAMMAD SAIFAN · GRADE 9 SYSTEMS ARCHITECT</span>
-          </div>
-          <h2 className="text-[13px] xs:text-[14px] sm:text-base md:text-lg font-extrabold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-white font-display">
+        <div className="relative z-30 text-center mt-3 sm:mt-5 px-3 flex flex-col items-center gap-2">
+          <h2 className="text-[13px] xs:text-[14px] sm:text-base md:text-lg font-extrabold uppercase tracking-[0.14em] sm:tracking-[0.25em] text-white font-display">
             <TypewriterText
               text="SOLUTIONS ARCHITECT & SYSTEMS ENGINEER"
               delay={400}
