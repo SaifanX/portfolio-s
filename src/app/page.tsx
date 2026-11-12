@@ -65,22 +65,22 @@ export default function Home() {
       <Hero isReady={curtainLifting} />
 
       {/* Curvilinear TextLoop Marquee Banner */}
-      <section className="relative z-10 py-3 sm:py-4 overflow-hidden border-y border-zinc-800/40 bg-[#09090d]/60 backdrop-blur-sm">
+      <section className="relative z-10 py-0.5 sm:py-1 overflow-hidden border-y border-zinc-800/40 bg-[#09090d]/60 backdrop-blur-sm max-h-[150px] flex items-center">
         <TextLoop
           text="STATE RUNNER-UP ✦ LIVE CLIENT PLATFORMS ✦ 3D SIMULATIONS ✦ AI SYSTEMS ✦ DRONE AVIONICS"
           shape="wave"
           speed={65}
           direction="forward"
           separator="✦"
-          curviness={36}
-          tilt={-0.6}
-          fontSize={22}
+          curviness={22}
+          tilt={-0.3}
+          fontSize={20}
           fontWeight={900}
           letterSpacing={2}
           uppercase={true}
           ribbon={true}
           ribbonColor="#18040d"
-          ribbonWidth={56}
+          ribbonWidth={46}
           color="#e11d48"
           scrollBoost={0.4}
           pauseOnHover={true}

@@ -6,10 +6,10 @@ import { gsap } from 'gsap';
 import './TextLoop.css';
 
 const VIEW_W = 1200;
-const VIEW_H = 520;
+const VIEW_H = 135;
 const CX = VIEW_W / 2;
 const CY = VIEW_H / 2;
-const EDGE_PAD = 6;
+const EDGE_PAD = 4;
 const FADE_STEPS = 8;
 const MAX_FLING = 2600;
 const MAX_BOOST = 1600;
@@ -25,7 +25,7 @@ const circleRadius = (curviness, ribbonWidth) =>
 
 const buildPath = (shape, curviness, ribbonWidth, mirrored = false) => {
   const c = Math.max(0, curviness);
-  const room = Math.max(20, CY - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
+  const room = Math.max(16, CY - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
   const flip = mirrored ? -1 : 1;
 
   switch (shape) {
@@ -58,7 +58,7 @@ const buildPath = (shape, curviness, ribbonWidth, mirrored = false) => {
       return `M -320 ${CY} L ${VIEW_W + 320} ${CY}`;
     case 'wave':
     default: {
-      const a = Math.min(c * 2.2, room * 2) * flip;
+      const a = Math.min(c * 1.0, room) * flip;
       return `M -320 ${CY} Q -160 ${CY - a} 0 ${CY} T 320 ${CY} T 640 ${CY} T 960 ${CY} T 1280 ${CY} T ${VIEW_W + 320} ${CY}`;
     }
   }
