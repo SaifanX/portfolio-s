@@ -26,9 +26,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        display: ["var(--font-syne)", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "monospace"],
+        sans: ["'Inter'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        display: ["'Syne'", "sans-serif"],
+        mono: ["'JetBrains Mono'", "monospace"],
       },
       animation: {
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",

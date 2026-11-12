@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import Preloader from "@/components/Preloader";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TextLoop from "@/components/TextLoop";
@@ -9,11 +9,33 @@ import SelectedProjects from "@/components/SelectedProjects";
 import WorkProcess from "@/components/WorkProcess";
 import TechnicalArsenal from "@/components/TechnicalArsenal";
 import ConversionFooter from "@/components/ConversionFooter";
-import LiquidEther from "@/components/LiquidEther";
+
+// Lazy-load WebGL fluid simulation so it never blocks FCP or main thread boot
+const LiquidEther = dynamic(() => import("@/components/LiquidEther"), {
+  ssr: false,
+});
+
+// Preloader component
+const Preloader = dynamic(() => import("@/components/Preloader"), {
+  ssr: false,
+});
 
 export default function Home() {
-  const [showPreloader, setShowPreloader] = useState(true);
-  const [curtainLifting, setCurtainLifting] = useState(false);
+  const [showPreloader, setShowPreloader] = useState(false);
+  const [curtainLifting, setCurtainLifting] = useState(true);
+
+  useEffect(() => {
+    // Only show preloader on first session visit
+    const hasVisited = sessionStorage.getItem("portfolio_visited");
+    if (!hasVisited) {
+      setShowPreloader(true);
+      setCurtainLifting(false);
+      sessionStorage.setItem("portfolio_visited", "true");
+    } else {
+      setShowPreloader(false);
+      setCurtainLifting(true);
+    }
+  }, []);
 
   return (
     <main className="relative min-h-screen bg-[#09090d] text-zinc-100 overflow-x-hidden selection:bg-crimson selection:text-white">
@@ -30,7 +52,7 @@ export default function Home() {
         />
       </div>
 
-      {/* Interactive Curtain Preloader */}
+      {/* Interactive Curtain Preloader (Session-capped: runs once per session) */}
       {showPreloader && (
         <Preloader
           onExitStart={() => setCurtainLifting(true)}
@@ -39,13 +61,13 @@ export default function Home() {
       )}
 
       {/* Main Experience */}
-      <Navbar />
+      <Navbar isLoaded={curtainLifting} />
       <Hero isReady={curtainLifting} />
 
-      {/* React Bits Curvilinear TextLoop Marquee Banner */}
+      {/* Curvilinear TextLoop Marquee Banner */}
       <section className="relative z-10 py-3 sm:py-4 overflow-hidden border-y border-zinc-800/40 bg-[#09090d]/60 backdrop-blur-sm">
         <TextLoop
-          text="SOLUTIONS ARCHITECT ✦ REACTIVE SYSTEMS ✦ 3D SIMULATIONS ✦ TECHNOFEST 2ND PLACE ✦ MISSION-CRITICAL AI ✦ ZERO-LAG ARCHITECTURE"
+          text="STATE RUNNER-UP ✦ LIVE CLIENT PLATFORMS ✦ 3D SIMULATIONS ✦ AI SYSTEMS ✦ DRONE AVIONICS"
           shape="wave"
           speed={65}
           direction="forward"
@@ -64,6 +86,28 @@ export default function Home() {
           pauseOnHover={true}
         />
       </section>
+
+      {/* "Currently Building" Real-Time Momentum Banner */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 mt-6 mb-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 sm:px-5 rounded-2xl bg-[#111118]/80 border border-zinc-800/90 shadow-lg backdrop-blur-sm">
+          <div className="flex items-center gap-3">
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <span className="font-mono text-xs uppercase tracking-wider text-emerald-400 font-bold shrink-0">
+              Currently Building
+            </span>
+            <span className="text-zinc-700 hidden sm:inline">|</span>
+            <span className="text-xs sm:text-sm text-zinc-300">
+              Rebuilding AirGuard avionics telemetry & preparing for national aerospace competitions
+            </span>
+          </div>
+          <span className="text-[11px] font-mono text-zinc-400 shrink-0 self-end sm:self-center">
+            Updated Nov 2026
+          </span>
+        </div>
+      </div>
 
       <SelectedProjects />
       <WorkProcess />

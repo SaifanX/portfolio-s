@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800;900&family=Playfair+Display:ital,wght@1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@700;800;900&family=Playfair+Display:ital,wght@1,500;1,600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-syne: 'Syne', sans-serif;
   --font-jetbrains: 'JetBrains Mono', monospace;
 }
@@ -18,7 +18,7 @@
 body {
   background-color: #09090d;
   color: #f4f4f6;
-  font-family: var(--font-inter);
+  font-family: 'Inter', var(--font-inter), -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
@@ -36,7 +36,6 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: #272736;
-  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #e11d48;
@@ -48,4 +47,14 @@ body {
   background-image: 
     linear-gradient(to right, rgba(225, 29, 72, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Hero wordmark mobile scaling */
+@media (max-width: 768px) {
+  .hero-name {
+    font-size: 18vw !important;
+  }
+  .hero-portrait {
+    display: none !important;
+  }
 }

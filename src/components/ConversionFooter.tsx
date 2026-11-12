@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Copy, Check, Github, Linkedin, Mail } from "lucide-react";
+import { Copy, Check, Github, Linkedin, Mail, Calendar, FileText, ArrowUpRight } from "lucide-react";
 
 export default function ConversionFooter() {
   const [copied, setCopied] = useState(false);
@@ -58,7 +58,7 @@ export default function ConversionFooter() {
         </p>
       </motion.div>
 
-      {/* Main Conversion Callout Box with Rich Crimson Gradient */}
+      {/* Main Conversion Callout Box with Multi-Option CTAs */}
       <motion.div
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -70,29 +70,54 @@ export default function ConversionFooter() {
 
         <div className="relative z-10 max-w-3xl space-y-6">
           <blockquote className="text-lg sm:text-2xl font-semibold text-white leading-snug font-display">
-            "Most developers build static websites that look good. I architect high-performance, reactive engines that scale, compute, and perform under real-world pressure."
+            &ldquo;I build and ship real products. If you have a problem worth solving, let&apos;s talk.&rdquo;
           </blockquote>
           <p className="font-mono text-xs text-crimson font-semibold uppercase tracking-widest">
             — Mohammed Saifan · Bangalore, India
           </p>
 
-          {/* Interactive Email Copy Pill */}
-          <div className="pt-4 flex flex-wrap items-center gap-4">
+          {/* High-Conversion Multi-Action Suite */}
+          <div className="pt-4 flex flex-wrap items-center gap-3.5">
+            {/* Primary Option 1: Direct 30-Min Call Booking */}
+            <a
+              href="https://cal.com/saifan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-6 py-3.5 text-xs sm:text-sm transition-all shadow-[0_0_30px_rgba(225,29,72,0.5)] active:scale-95"
+            >
+              <Calendar className="w-4 h-4 text-white shrink-0" />
+              <span>Schedule 30-Min Call</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
+            </a>
+
+            {/* Option 2: Copy Email */}
             <button
               onClick={handleCopy}
-              className="group inline-flex items-center justify-center gap-2.5 sm:gap-3 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-5 sm:px-7 py-3.5 sm:py-4 text-xs sm:text-sm transition-all shadow-[0_0_30px_rgba(225,29,72,0.5)] active:scale-95 max-w-full"
+              className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700/80 text-zinc-100 font-semibold px-5 py-3.5 text-xs sm:text-sm transition-all active:scale-95"
             >
-              <Mail className="w-4 h-4 text-white shrink-0" />
+              <Mail className="w-4 h-4 text-crimson shrink-0" />
               <span className="truncate">{email}</span>
               {copied ? (
-                <Check className="w-4 h-4 text-white shrink-0 animate-in fade-in zoom-in" />
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
               ) : (
-                <Copy className="w-4 h-4 text-white/80 shrink-0 group-hover:text-white transition-colors" />
+                <Copy className="w-4 h-4 text-zinc-400 shrink-0 group-hover:text-white transition-colors" />
               )}
             </button>
 
+            {/* Option 3: Download One-Page CV / Resume */}
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Mohammed_Saifan_CV.pdf"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700/80 text-zinc-300 hover:text-white font-semibold px-5 py-3.5 text-xs sm:text-sm transition-all active:scale-95"
+            >
+              <FileText className="w-4 h-4 text-zinc-400" />
+              <span>Download CV (PDF)</span>
+            </a>
+
             {copied && (
-              <span className="text-xs font-mono text-emerald-400 font-medium animate-in fade-in">
+              <span className="text-xs font-mono text-emerald-400 font-medium animate-in fade-in w-full sm:w-auto">
                 ✓ Copied to clipboard!
               </span>
             )}

@@ -14,10 +14,9 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-// Typewriter Text Effect Component (Preserves existing typography/fonts)
+// Accessible Typewriter Text Effect Component
 function TypewriterText({
   text,
-  startTrigger = true,
   delay = 0,
   speed = 40,
   className = "",
@@ -34,12 +33,6 @@ function TypewriterText({
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    if (!startTrigger) {
-      setDisplayedText("");
-      setIsDone(false);
-      return;
-    }
-
     let charIndex = 0;
     const startTimeout = setTimeout(() => {
       const interval = setInterval(() => {
@@ -56,11 +49,11 @@ function TypewriterText({
     }, delay);
 
     return () => clearTimeout(startTimeout);
-  }, [text, startTrigger, delay, speed]);
+  }, [text, delay, speed]);
 
   return (
     <span className={className}>
-      {displayedText}
+      <span>{displayedText || text.slice(0, 1)}</span>
       {showCursor && !isDone && (
         <span className="inline-block w-[2px] h-[0.9em] bg-crimson ml-1 animate-pulse align-middle" />
       )}
@@ -102,7 +95,7 @@ export default function Hero({ isReady = true }: HeroProps) {
   ];
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col justify-between pt-24 xs:pt-28 sm:pt-32 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-10 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex flex-col justify-between pt-24 xs:pt-28 sm:pt-32 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-10 overflow-hidden font-sans">
       {/* Rich Atmospheric Crimson Glow & Ambient Lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[750px] lg:w-[1100px] h-[300px] sm:h-[480px] bg-crimson/20 blur-[120px] sm:blur-[160px] pointer-events-none rounded-full" />
       <div className="absolute top-1/3 left-1/4 w-[280px] sm:w-[400px] h-[240px] sm:h-[340px] bg-crimson-dark/30 blur-[100px] sm:blur-[140px] pointer-events-none rounded-full" />
@@ -113,20 +106,19 @@ export default function Hero({ isReady = true }: HeroProps) {
 
       {/* Central Composition: Monumental Typewriter SAIFAN + Cutout Portrait */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center my-auto">
-        <div className="relative w-full h-[210px] xs:h-[250px] sm:h-[300px] md:h-[350px] lg:h-[390px] xl:h-[420px] flex items-end justify-center select-none">
-          {/* Monumental White Display Text BEHIND the image (Typewriter Effect) */}
-          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-            <h1 className="font-display font-black tracking-tight text-5xl xs:text-6xl sm:text-7xl md:text-[9.5rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)]">
+        <div className="relative w-full py-4 md:py-0 md:h-[350px] lg:h-[390px] xl:h-[420px] flex items-center md:items-end justify-center select-none">
+          {/* Monumental White Display Text (Scales down to 18vw on mobile) */}
+          <div className="relative md:absolute md:inset-0 flex items-center justify-center z-10 pointer-events-none text-center">
+            <h1 className="hero-name font-display font-black tracking-tight text-[18vw] md:text-[9.5rem] lg:text-[12rem] xl:text-[14rem] uppercase text-white leading-none drop-shadow-[0_15px_40px_rgba(225,29,72,0.35)]">
               <TypewriterText
                 text="SAIFAN"
-                startTrigger={isReady}
-                delay={500}
-                speed={75}
+                delay={150}
+                speed={50}
               />
             </h1>
           </div>
 
-          {/* Portrait Image in the Foreground (Follows the curtain lift without fade-in) */}
+          {/* Portrait Image (Hidden on mobile < 768px, visible on desktop behind foreground text) */}
           <motion.div
             initial={{ y: 90 }}
             animate={isReady ? { y: 0 } : { y: 90 }}
@@ -134,7 +126,7 @@ export default function Hero({ isReady = true }: HeroProps) {
               duration: 0.95,
               ease: [0.77, 0, 0.175, 1],
             }}
-            className="relative z-20 w-[210px] xs:w-[250px] sm:w-[300px] md:w-[350px] lg:w-[390px] xl:w-[420px] h-full flex items-end justify-center pointer-events-none"
+            className="hero-portrait hidden md:flex relative z-20 md:w-[350px] lg:w-[390px] xl:w-[420px] h-full items-end justify-center pointer-events-none"
           >
             {/* Backlight Glow around the portrait */}
             <motion.div
@@ -150,6 +142,7 @@ export default function Hero({ isReady = true }: HeroProps) {
               fill
               sizes="(max-width: 768px) 100vw, 500px"
               priority
+              quality={85}
               className="object-contain object-bottom select-none pointer-events-none filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)]"
             />
 
@@ -158,14 +151,13 @@ export default function Hero({ isReady = true }: HeroProps) {
           </motion.div>
         </div>
 
-        {/* Text Placed Directly Below the Image (Typewriter Effect) */}
-        <div className="relative z-30 text-center mt-3 sm:mt-5 px-3">
-          <h2 className="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-[0.16em] sm:tracking-[0.25em] text-zinc-300 font-display">
+        {/* Text Placed Directly Below (Min 14px readable size on mobile) */}
+        <div className="relative z-30 text-center mt-2 sm:mt-5 px-3">
+          <h2 className="text-[14px] sm:text-base md:text-base font-extrabold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-zinc-300 font-display">
             <TypewriterText
               text="SOLUTIONS ARCHITECT & SYSTEMS ENGINEER"
-              startTrigger={isReady}
-              delay={1000}
-              speed={25}
+              delay={400}
+              speed={20}
               showCursor={true}
             />
           </h2>
@@ -173,9 +165,9 @@ export default function Hero({ isReady = true }: HeroProps) {
       </div>
 
       {/* Clean Editorial Bottom Bar */}
-      <div className="relative z-30 w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-zinc-800/50">
-        {/* Sleek Circular Social Media Icons (Fading Outwards from Behind Each Other) */}
-        <div className="relative flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
+      <div className="relative z-30 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 pt-4 border-t border-zinc-800/50">
+        {/* Sleek Circular Social Media Icons (Placed above CTA button on mobile, left on desktop) */}
+        <div className="relative flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap w-full md:w-auto">
           {socials.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -185,26 +177,23 @@ export default function Hero({ isReady = true }: HeroProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={s.name}
+                aria-label={`Mohammed Saifan's ${s.name}`}
                 initial={{ x: -(i * 44), opacity: 0, scale: 0.35 }}
-                animate={
-                  isReady
-                    ? { x: 0, opacity: 1, scale: 1 }
-                    : { x: -(i * 44), opacity: 0, scale: 0.35 }
-                }
+                animate={{ x: 0, opacity: 1, scale: 1 }}
                 transition={{
-                  delay: 1.7 + i * 0.1,
+                  delay: 0.8 + i * 0.08,
                   type: "spring",
                   stiffness: 240,
                   damping: 18,
                 }}
-                className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-zinc-950 hover:bg-crimson hover:text-white transition-colors duration-300 flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.5)] active:scale-95 group overflow-hidden"
+                className="relative w-9 h-9 sm:w-9 sm:h-9 rounded-full bg-white text-zinc-950 hover:bg-crimson hover:text-white transition-colors duration-300 flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.5)] active:scale-95 group overflow-hidden"
               >
-                {/* Default Social Icon (exits diagonally to top-right on hover) */}
+                {/* Default Social Icon */}
                 <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-out group-hover:translate-x-3.5 group-hover:-translate-y-3.5 group-hover:opacity-0">
                   <Icon className="w-3.5 h-3.5" />
                 </span>
 
-                {/* Micro-animated Arrow (↗) (shoots in diagonally from bottom-left on hover) */}
+                {/* Micro-animated Arrow (↗) */}
                 <span className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-out -translate-x-3.5 translate-y-3.5 opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100">
                   <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                 </span>
@@ -213,21 +202,21 @@ export default function Hero({ isReady = true }: HeroProps) {
           })}
         </div>
 
-        {/* Bottom-Right: CTA Button & Availability Indicator */}
+        {/* Bottom CTA Button (Full-width on mobile, auto on desktop) */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
-          animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ delay: 2.4, duration: 0.6 }}
-          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.5 }}
+          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full md:w-auto"
         >
-          <div className="hidden md:flex items-center gap-2 font-mono text-xs text-zinc-400">
+          <div className="hidden lg:flex items-center gap-2 font-mono text-xs text-zinc-400">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="tracking-wide">Open for High-Impact Roles</span>
           </div>
 
           <a
             href="#projects"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-6 py-2.5 text-xs sm:text-sm transition-all shadow-[0_0_25px_rgba(225,29,72,0.6)] active:scale-95 group w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-6 py-3.5 sm:py-2.5 text-sm transition-all shadow-[0_0_25px_rgba(225,29,72,0.6)] active:scale-95 group w-full md:w-auto text-center"
           >
             <span>Explore Flagship Systems</span>
             <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
