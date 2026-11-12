@@ -151,9 +151,13 @@ export default function Hero({ isReady = true }: HeroProps) {
           </motion.div>
         </div>
 
-        {/* Text Placed Directly Below (Min 14px readable size on mobile) */}
-        <div className="relative z-30 text-center mt-2 sm:mt-5 px-3">
-          <h2 className="text-[14px] sm:text-base md:text-base font-extrabold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-zinc-300 font-display">
+        {/* Text Placed Directly Below */}
+        <div className="relative z-30 text-center mt-3 sm:mt-6 px-3 flex flex-col items-center gap-2.5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-crimson/15 border border-crimson/40 text-[11px] font-mono text-zinc-300 font-semibold shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-crimson animate-pulse" />
+            <span>MOHAMMAD SAIFAN · GRADE 9 SYSTEMS ARCHITECT</span>
+          </div>
+          <h2 className="text-[13px] xs:text-[14px] sm:text-base md:text-lg font-extrabold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-white font-display">
             <TypewriterText
               text="SOLUTIONS ARCHITECT & SYSTEMS ENGINEER"
               delay={400}
@@ -161,6 +165,9 @@ export default function Hero({ isReady = true }: HeroProps) {
               showCursor={true}
             />
           </h2>
+          <p className="max-w-xl mx-auto text-xs sm:text-sm font-mono text-zinc-400">
+            Avionics telemetry, 3D mathematical simulations, and commercial client web platforms.
+          </p>
         </div>
       </div>
 

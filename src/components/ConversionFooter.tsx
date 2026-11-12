@@ -80,7 +80,7 @@ export default function ConversionFooter() {
           <div className="pt-4 flex flex-wrap items-center gap-3.5">
             {/* Primary Option 1: Direct 30-Min Call Booking */}
             <a
-              href="https://cal.com/saifan"
+              href="https://cal.id/mbsys"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-6 py-3.5 text-xs sm:text-sm transition-all shadow-[0_0_30px_rgba(225,29,72,0.5)] active:scale-95"
@@ -117,8 +117,9 @@ export default function ConversionFooter() {
             </a>
 
             {copied && (
-              <span className="text-xs font-mono text-emerald-400 font-medium animate-in fade-in w-full sm:w-auto">
-                ✓ Copied to clipboard!
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-medium animate-in fade-in w-full sm:w-auto">
+                <Check className="w-3.5 h-3.5" />
+                <span>Copied to clipboard!</span>
               </span>
             )}
           </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TextLoop from "@/components/TextLoop";
@@ -87,25 +88,31 @@ export default function Home() {
         />
       </section>
 
-      {/* "Currently Building" Real-Time Momentum Banner */}
+      {/* "Now Working" Real-Time Momentum Banner */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 mt-6 mb-2">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 sm:px-5 rounded-2xl bg-[#111118]/80 border border-zinc-800/90 shadow-lg backdrop-blur-sm">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 sm:px-5 rounded-2xl bg-[#111118]/90 border border-crimson/30 shadow-[0_0_20px_rgba(225,29,72,0.12)] backdrop-blur-md">
+          <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
             <span className="relative flex h-2.5 w-2.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-crimson opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-crimson"></span>
             </span>
-            <span className="font-mono text-xs uppercase tracking-wider text-emerald-400 font-bold shrink-0">
-              Currently Building
+            <span className="font-mono text-xs uppercase tracking-wider text-crimson font-bold shrink-0">
+              Now Working
             </span>
             <span className="text-zinc-700 hidden sm:inline">|</span>
-            <span className="text-xs sm:text-sm text-zinc-300">
-              Rebuilding AirGuard avionics telemetry & preparing for national aerospace competitions
+            <span className="text-xs sm:text-sm text-zinc-200">
+              Working on the Zuzu Minis client e-commerce store
             </span>
           </div>
-          <span className="text-[11px] font-mono text-zinc-400 shrink-0 self-end sm:self-center">
-            Updated Nov 2026
-          </span>
+          <a
+            href="https://zuzuminis.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson/15 hover:bg-crimson/30 border border-crimson/50 text-white text-xs font-mono font-semibold transition-all shrink-0 self-end sm:self-center group"
+          >
+            <span>Visit Live Store</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-crimson-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
         </div>
       </div>
 

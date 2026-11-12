@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Github, ExternalLink, Trophy, Cpu, Briefcase, Layers, ArrowRight, CheckCircle2, Quote } from "lucide-react";
+import { Github, ExternalLink, Trophy, Cpu, Briefcase, Layers, ArrowRight, Clock, Quote } from "lucide-react";
 import CanvasRevealEffect from "@/components/CanvasRevealEffect";
 import TechText from "@/components/TechText";
 
@@ -13,11 +13,10 @@ interface Project {
   subtitle: string;
   badge?: string;
   badgeType?: "trophy" | "client" | "lab";
-  outcome: string;
   description: string;
   stack: string[];
   liveUrl?: string;
-  githubUrl: string;
+  githubUrl?: string;
   caseStudyUrl?: string;
   accent: string;
   image: string;
@@ -31,10 +30,9 @@ const flagshipProjects: Project[] = [
     subtitle: "Autonomous Pre-Flight UAV Avionics & AI Co-Pilot",
     badge: "TechnoFest Hackathon 2026 State 2nd Place",
     badgeType: "trophy",
-    outcome: "Built in 24 hours. Placed 2nd out of 100+ teams across Karnataka.",
     caseStudyUrl: "/airguard",
     description:
-      "A pre-flight safety layer for drone pilots featuring geospatial dynamic geofencing, real-time ADS-B weather rasterization, and Gemini LLM-driven FAA/DGCA aviation compliance checks. Built with distributed reactive state synchronization.",
+      "A pre-flight safety layer for drone pilots featuring geospatial dynamic geofencing, real-time ADS-B weather rasterization, and Gemini LLM-driven FAA/DGCA aviation compliance checks. Built in 24 hours, placing 2nd out of 100+ teams across Karnataka.",
     stack: ["React", "TypeScript", "Leaflet", "Gemini API", "Convex"],
     liveUrl: "https://airguard-1.netlify.app",
     githubUrl: "https://github.com/SaifanX/Airguard-Daemons",
@@ -48,9 +46,8 @@ const flagshipProjects: Project[] = [
     subtitle: "Game Theory & Evolutionary Dynamics 3D Engine",
     badge: "Algorithmic Simulation Lab",
     badgeType: "lab",
-    outcome: "Runs Nash Equilibrium simulations at 60 FPS in the browser with zero backend.",
     description:
-      "High-performance real-time 3D mathematical simulation engine exploring multi-agent Prisoner's Dilemma, Nash Equilibria, spatial cellular mutation vectors, and real-time payoff matrices running at 60 FPS in WebGL.",
+      "High-performance real-time 3D mathematical simulation engine exploring multi-agent Prisoner's Dilemma, Nash Equilibria, spatial cellular mutation vectors, and real-time payoff matrices running in WebGL with zero backend latency.",
     stack: ["React 19", "TypeScript", "Three.js", "Convex", "Vitest"],
     liveUrl: "https://strategos1.netlify.app",
     githubUrl: "https://github.com/SaifanX/Strategos",
@@ -64,9 +61,8 @@ const flagshipProjects: Project[] = [
     subtitle: "Enterprise Intelligence & Forensic Entity Registry",
     badge: "AI for Bharat Hackathon Finalist",
     badgeType: "trophy",
-    outcome: "Finalist at AI for Bharat 2026 out of hundreds of national engineering submissions.",
     description:
-      "Forensic-grade entity resolution platform across fragmented national registries (GSTIN, PAN, MCA) with real-time arbitration command centers and cross-state corporate fraud relationship graphs.",
+      "Forensic-grade entity resolution platform across fragmented national registries (GSTIN, PAN, MCA) with real-time arbitration command centers and cross-state corporate fraud relationship graphs. Finalist at AI for Bharat 2026.",
     stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "Supabase"],
     liveUrl: "https://bbie-ai4bharat.netlify.app",
     githubUrl: "https://github.com/SaifanX/bbie-prototype",
@@ -77,18 +73,31 @@ const flagshipProjects: Project[] = [
   {
     number: "04",
     title: "MBSYS & Hunar",
-    subtitle: "Enterprise Web Systems for Paying Clients",
-    badge: "Live Client Work",
+    subtitle: "Enterprise Web Systems for Commercial Clients",
+    badge: "Live Client Infrastructure",
     badgeType: "client",
-    outcome: "Serving 2 paying clients in Bangalore with 99.9% uptime since 2024.",
     description:
-      "Production platforms with real-time CMS serving 2 live business clients in Bangalore. Features high-performance architecture, dynamic GPU-accelerated canvas animations, and synchronized brand handoffs.",
+      "Production platforms with real-time CMS serving 2 live business clients in Bangalore with 99.9% uptime. Features high-performance architecture, dynamic GPU-accelerated canvas animations, and synchronized brand handoffs.",
     stack: ["Next.js", "React 19", "Convex", "Tailwind CSS"],
     liveUrl: "https://mbsys.co.in",
     githubUrl: "https://github.com/SaifanX/mbsys-1",
     accent: "from-rose-500/20 to-transparent",
     image: "/screenshots/mbsys.png",
     imageAlt: "MBSYS Production Platform for Enterprise Clients",
+  },
+  {
+    number: "05",
+    title: "Zuzu Minis",
+    subtitle: "Boutique E-Commerce & Real-Time Retail Platform",
+    badge: "Live E-Commerce Client",
+    badgeType: "client",
+    description:
+      "High-conversion boutique e-commerce platform built to bridge physical storefront retail with digital commerce. Features real-time inventory synchronization, instant cart state, fluid motion design, and mobile-first checkout.",
+    stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "Convex", "GSAP"],
+    liveUrl: "https://zuzuminis.com",
+    accent: "from-crimson/25 via-crimson/10 to-transparent",
+    image: "/screenshots/zuzuminis.png",
+    imageAlt: "Zuzu Minis Boutique E-Commerce Platform",
   },
 ];
 
@@ -152,7 +161,7 @@ export default function SelectedProjects() {
         </p>
       </motion.div>
 
-      {/* Flagship Projects Grid (Dual Column with Screenshots & Outcomes) */}
+      {/* Flagship Projects Grid (Dual Column with Screenshots & Clean Visual Flow) */}
       <div className="space-y-8 mb-16">
         {flagshipProjects.map((project, idx) => (
           <motion.div
@@ -202,15 +211,9 @@ export default function SelectedProjects() {
 
                   {/* Badge */}
                   {project.badge && (
-                    <span
-                      className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-mono font-semibold shadow-sm ${
-                        project.badgeType === "client"
-                          ? "bg-emerald-500/20 border border-emerald-500/50 text-emerald-200"
-                          : "bg-crimson/20 border border-crimson/50 text-zinc-100"
-                      }`}
-                    >
+                    <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-mono font-semibold shadow-sm bg-crimson/15 border border-crimson/40 text-zinc-100">
                       {project.badgeType === "client" ? (
-                        <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
+                        <Briefcase className="w-3.5 h-3.5 text-crimson-glow" />
                       ) : project.badgeType === "lab" ? (
                         <Layers className="w-3.5 h-3.5 text-crimson-glow" />
                       ) : (
@@ -249,14 +252,6 @@ export default function SelectedProjects() {
                   </p>
                 </div>
 
-                {/* THE "SO WHAT" OUTCOME CALLOUT */}
-                <div className="p-3 rounded-xl bg-zinc-900/80 border border-crimson/30 flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-crimson shrink-0" />
-                  <span className="text-xs sm:text-sm font-semibold text-white">
-                    {project.outcome}
-                  </span>
-                </div>
-
                 <p className="text-sm sm:text-base text-zinc-300 leading-relaxed pt-1">
                   {project.description}
                 </p>
@@ -283,7 +278,7 @@ export default function SelectedProjects() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-crimson hover:bg-crimson-glow text-white font-bold px-5 py-2.5 text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(225,29,72,0.4)] active:scale-95 group/btn"
                       >
-                        <span>Launch Live Engine</span>
+                        <span>{project.title === "Zuzu Minis" ? "Launch Store" : "Launch Live Engine"}</span>
                         <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                       </a>
                     )}
@@ -298,21 +293,24 @@ export default function SelectedProjects() {
                       </Link>
                     )}
 
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#181822] hover:bg-zinc-800 border border-zinc-700/80 text-zinc-200 hover:text-white font-semibold px-5 py-2.5 text-xs sm:text-sm transition-all active:scale-95"
-                    >
-                      <Github className="w-4 h-4" />
-                      <span>Inspect Code</span>
-                    </a>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 rounded-full bg-[#181822] hover:bg-zinc-800 border border-zinc-700/80 text-zinc-200 hover:text-white font-semibold px-5 py-2.5 text-xs sm:text-sm transition-all active:scale-95"
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>Inspect Code</span>
+                      </a>
+                    )}
                   </div>
 
                   {project.liveUrl && (
-                    <p className="text-[11px] font-mono text-zinc-500 italic">
-                      ⚡ Hosted on Netlify — may take 3-5s for cold start.
-                    </p>
+                    <div className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 pt-1">
+                      <Clock className="w-3.5 h-3.5 text-zinc-400" />
+                      <span>Hosted on Netlify / Cloudflare — may take 3-5s for cold start.</span>
+                    </div>
                   )}
                 </div>
               </div>
@@ -334,48 +332,97 @@ export default function SelectedProjects() {
         ))}
       </div>
 
-      {/* VERIFIED CLIENT SOCIAL PROOF */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6 }}
-        className="my-14 p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-[#181216] via-[#101018] to-[#0c0c12] border border-emerald-500/40 relative overflow-hidden shadow-2xl"
-      >
-        <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-500/10 blur-[90px] pointer-events-none rounded-full" />
-        <Quote className="absolute right-6 bottom-4 w-32 h-32 text-emerald-500/5 pointer-events-none" />
+      {/* VERIFIED CLIENT SOCIAL PROOF: Consistent Dark-Crimson Palette */}
+      <div className="my-14 space-y-6">
+        <div className="flex items-center gap-2 text-zinc-400">
+          <Briefcase className="w-4 h-4 text-crimson" />
+          <h3 className="text-xs uppercase font-mono tracking-widest text-crimson font-bold">
+            Verified Client Endorsements & Production Deployments
+          </h3>
+        </div>
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-[11px] font-mono text-emerald-300 font-bold">
-                <Briefcase className="w-3.5 h-3.5" />
-                Verified Client Endorsement
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Review 1: MBSYS */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#160d13] via-[#0f0f16] to-[#0a0a0f] border border-crimson/30 hover:border-crimson/60 relative overflow-hidden shadow-2xl flex flex-col justify-between gap-6 transition-all"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-crimson/10 blur-[80px] pointer-events-none rounded-full" />
+            <Quote className="absolute right-4 bottom-4 w-28 h-28 text-crimson/5 pointer-events-none" />
+
+            <div className="relative z-10 space-y-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson/15 border border-crimson/40 text-[11px] font-mono text-rose-300 font-bold">
+                <Briefcase className="w-3.5 h-3.5 text-crimson-glow" />
+                Enterprise Infrastructure
               </span>
+
+              <blockquote className="text-sm sm:text-base font-medium text-white italic leading-relaxed font-display">
+                &ldquo;Saifan delivered our enterprise platform on time and with zero downtime. The architecture is fast, reliable, and exceptionally engineered.&rdquo;
+              </blockquote>
+
+              <p className="text-xs font-mono text-zinc-400">
+                — <span className="text-zinc-100 font-bold">MBSYS Enterprise Solutions</span> · Bangalore, India
+              </p>
             </div>
 
-            <blockquote className="text-base sm:text-xl font-medium text-white italic leading-relaxed font-display">
-              &ldquo;Saifan delivered our enterprise platform on time and it works exactly as described. The architecture is fast, reliable, and completely zero-downtime.&rdquo;
-            </blockquote>
+            <div className="relative z-10 pt-2 border-t border-zinc-800/80">
+              <a
+                href="https://mbsys.co.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 hover:bg-crimson border border-zinc-700/80 hover:border-crimson text-white text-xs font-mono font-bold transition-all shadow-sm shrink-0"
+              >
+                <span>Visit Platform</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </motion.div>
 
-            <p className="text-xs font-mono text-zinc-400">
-              — <span className="text-zinc-100 font-bold">MBSYS Enterprise Solutions</span> · Bangalore, India
-            </p>
-          </div>
-
-          <a
-            href="https://mbsys.co.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-mono font-bold transition-all shadow-[0_0_20px_rgba(16,185,129,0.35)] shrink-0 self-start md:self-center"
+          {/* Review 2: Zuzu Minis */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#160d13] via-[#0f0f16] to-[#0a0a0f] border border-crimson/30 hover:border-crimson/60 relative overflow-hidden shadow-2xl flex flex-col justify-between gap-6 transition-all"
           >
-            <span>Visit Live Platform</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
-      </motion.div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-crimson/10 blur-[80px] pointer-events-none rounded-full" />
+            <Quote className="absolute right-4 bottom-4 w-28 h-28 text-crimson/5 pointer-events-none" />
 
-      {/* Architectural Impact Metrics Bar */}
+            <div className="relative z-10 space-y-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson/15 border border-crimson/40 text-[11px] font-mono text-rose-300 font-bold">
+                <Briefcase className="w-3.5 h-3.5 text-crimson-glow" />
+                Retail E-Commerce
+              </span>
+
+              <blockquote className="text-sm sm:text-base font-medium text-white italic leading-relaxed font-display">
+                &ldquo;Saifan built our e-commerce platform with incredible speed and fluidity. The inventory sync and checkout flow feel truly top-tier.&rdquo;
+              </blockquote>
+
+              <p className="text-xs font-mono text-zinc-400">
+                — <span className="text-zinc-100 font-bold">Zuzu Minis Store</span> · Bangalore, India
+              </p>
+            </div>
+
+            <div className="relative z-10 pt-2 border-t border-zinc-800/80">
+              <a
+                href="https://zuzuminis.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-crimson hover:bg-crimson-glow text-white text-xs font-mono font-bold transition-all shadow-[0_0_20px_rgba(225,29,72,0.4)] shrink-0"
+              >
+                <span>Visit Store</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Architectural Impact Metrics Bar: 3 Live Clients & Outranked 100+ */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -384,7 +431,7 @@ export default function SelectedProjects() {
         className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 my-12 sm:my-16 p-4 sm:p-8 rounded-3xl bg-[#0e0e14]/90 border border-zinc-800/80 shadow-2xl backdrop-blur-sm"
       >
         <div className="space-y-1 p-2.5 sm:p-4 border-l-2 border-crimson">
-          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">2</div>
+          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">3</div>
           <div className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider">
             Live Client Platforms
           </div>
@@ -396,15 +443,15 @@ export default function SelectedProjects() {
           </div>
         </div>
         <div className="space-y-1 p-2.5 sm:p-4 border-l-2 border-crimson">
-          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">&lt;50ms</div>
+          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">100+</div>
           <div className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider">
-            Reactive State Latency
+            Teams Competed Across State
           </div>
         </div>
         <div className="space-y-1 p-2.5 sm:p-4 border-l-2 border-crimson">
-          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">60 FPS</div>
+          <div className="text-xl sm:text-3xl lg:text-4xl font-mono font-black text-white">Silicon to UI</div>
           <div className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider">
-            WebGL Simulation
+            Hardware, WebGL & AI Systems
           </div>
         </div>
       </motion.div>
